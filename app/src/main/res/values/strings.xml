@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">plank</string>
+    <string name="large_text">
+        "2016"
+
+        "祝大家猴年大吉"
+    </string>
+    <string name="action_settings">Settings</string>
+</resources>
