@@ -2,5 +2,31 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#ba68c8</color>
+
+    <color name="petrol_100">#00BAD1</color>
+    <color name="petrol_200">#008192</color>
+
+    <color name="bg_color">#F9F9F9</color>
+    <color name="color_white_semitransparent">#80ffffff</color>
+
+    <color name="grey_100">#F0F1F3</color>
+    <color name="grey_200">#CFCFCF</color>
+    <color name="grey_300">#A0A0A1</color>
+    <color name="grey_400">#606060</color>
+    <color name="grey_500">#ff4b4b4b</color>
+    <color name="grey_600">#424242</color>
+    <color name="grey_700">#ff3c3c3c</color>
+
+    <color name="pink">#FF4081</color>
+    <color name="indigo">#3F51B5</color>
+
+    <color name="blue_100">#00BCD4</color>
+    <color name="blue_200">#00A0B4</color>
+
+    <color name="violet_100">#3F51B5</color>
+    <color name="violet_200">#1A237E</color>
+
+    <color name="red">#ef1010</color>
+    <color name="yellow">#f4d301</color>
 </resources>

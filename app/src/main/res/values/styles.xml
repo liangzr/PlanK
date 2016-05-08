@@ -1,20 +1,203 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+    <style name="Theme.PlanK" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimaryDark">@color/petrol_200</item>
+        <item name="colorPrimary">@color/petrol_100</item>
+        <item name="android:windowBackground">@color/bg_color</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:windowTranslucentNavigation">true</item>
     </style>
 
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
+    <style name="Theme.FullScreen" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@color/bg_color</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.FullScreen.Petrol" parent="Theme.FullScreen">
+        <item name="colorPrimaryDark">@color/petrol_200</item>
+        <item name="colorPrimary">@color/petrol_100</item>
+    </style>
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="MyButton" parent="Theme.AppCompat.Light">
+        <item name="colorControlHighlight">@color/indigo</item>
+        <item name="colorButtonNormal">@color/pink</item>
+    </style>
+
+    <style name="CircularProgress" parent="Theme.AppCompat.Light">
+        <item name="colorAccent">@color/indigo</item>
+    </style>
+
+    <style name="LinearProgress" parent="Theme.AppCompat.Light">
+        <item name="colorAccent">@color/indigo</item>
+        <item name="android:progressBackgroundTint" tools:targetApi="lollipop">@color/pink</item>
+    </style>
+
+    <style name="MyCheckBox" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/indigo</item>
+        <item name="colorControlActivated">@color/pink</item>
+    </style>
+
+    <style name="MyRadioButton" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/indigo</item>
+        <item name="colorControlActivated">@color/pink</item>
+    </style>
+
+    <style name="MySwitch" parent="Theme.AppCompat.Light">
+        <!-- active thumb & track color (30% transparency) -->
+        <item name="colorControlActivated">@color/indigo</item>
+
+        <!-- inactive thumb color -->
+        <item name="colorSwitchThumbNormal">@color/pink</item>
+
+        <!-- inactive track color (30% transparency) -->
+        <item name="android:colorForeground">@color/grey_400</item>
+    </style>
+
+    <style name="MyEditText" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/indigo</item>
+        <item name="colorControlActivated">@color/pink</item>
+    </style>
+
+    <style name="FullWidthEditText" parent="Widget.AppCompat.EditText">
+        <item name="android:padding">20dp</item>
+        <item name="android:background">@null</item>
+        <item name="android:textSize" tools:ignore="PrivateResource">
+            @dimen/abc_text_size_subhead_material
+        </item>
+    </style>
+
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">@color/indigo</item>
+        <item name="colorControlActivated">@color/pink</item>
+    </style>
+
+    <style name="Theme.MaterialDoc.Tabs" parent="Theme.AppCompat">
+        <item name="colorPrimaryDark">@color/petrol_200</item>
+        <item name="colorPrimary">@color/petrol_100</item>
+    </style>
+
+    <style name="Theme.MaterialDoc.Tabs.Styled" parent="Theme.AppCompat">
+        <item name="colorPrimaryDark">@color/violet_200</item>
+        <item name="colorPrimary">@color/violet_100</item>
+    </style>
+
+    <style name="TabLayoutStyle" parent="Widget.Design.TabLayout">
+        <item name="tabIndicatorColor">@color/cardview_light_background</item>
+        <item name="tabIndicatorHeight">2dp</item>
+        <item name="tabPaddingStart">8dp</item>
+        <item name="tabPaddingEnd">8dp</item>
+        <!--<item name="tabBackground">?attr/selectableItemBackground</item>-->
+        <item name="tabTextAppearance">@style/TabTextAppearance</item>
+        <item name="tabSelectedTextColor">@android:color/white</item>
+    </style>
+
+    <style name="TabTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/color_white_semitransparent</item>
+        <item name="textAllCaps">true</item>
+    </style>
+
+    <style name="MyHintText" parent="TextAppearance.AppCompat.Small">
+        <item name="android:textColor">@color/color_white_semitransparent</item>
+    </style>
+
+    <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <!--buttons color-->
+        <item name="colorAccent">@color/pink</item>
+        <!--title and message color-->
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <!--dialog background-->
+        <item name="android:windowBackground">@drawable/background_dialog</item>
+    </style>
+
+    <style name="MyCardViewStyle" parent="Theme.AppCompat.Light">
+        <item name="cardCornerRadius">2dp</item>
+        <item name="cardElevation">2dp</item>
+        <item name="contentPaddingBottom">24dp</item>
+        <item name="contentPaddingTop">24dp</item>
+        <item name="contentPaddingLeft">16dp</item>
+        <item name="contentPaddingRight">16dp</item>
+        <item name="cardBackgroundColor">@color/indigo</item>
+    </style>
+
+    <style name="MyConfirmationDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <!--item RadioButton or CheckBox color-->
+        <item name="colorControlNormal">@android:color/white</item>
+        <item name="colorControlActivated">@color/pink</item>
+        <!--item text color-->
+        <item name="textColorAlertDialogListItem">@android:color/white</item>
+        <!--buttons color-->
+        <item name="colorAccent">@color/pink</item>
+        <!--title and message color-->
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <!--dialog background-->
+        <item name="android:windowBackground">@drawable/background_dialog</item>
+    </style>
+
+    <style name="ToolbarTextAppearance">
+        <item name="android:fontFamily" tools:targetApi="jelly_bean">sans-serif-condensed</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:shadowDx">1</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowRadius">2</item>
+        <item name="android:shadowColor">?colorAccent</item>
+    </style>
+
+    <style name="ToolbarTextAppearance.Title">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="ToolbarTextAppearance.Subtitle">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="MyToolbar">
+        <item name="theme">@style/ThemeOverlay.AppCompat.Dark</item>
+        <item name="android:background">?colorPrimary</item>
+        <item name="android:elevation" tools:targetApi="lollipop">4dp</item>
+    </style>
+
+    <style name="BackMyToolbar">
+        <item name="theme">@style/ThemeOverlay.AppCompat.Dark</item>
+        <item name="navigationIcon">@drawable/abc_ic_ab_back_mtrl_am_alpha</item>
+        <item name="android:background">?colorPrimary</item>
+    </style>
+
+    <style name="MyToolbarBlank">
+        <item name="theme">@style/ThemeOverlay.AppCompat.Dark</item>
+        <item name="navigationIcon">@drawable/abc_ic_ab_back_mtrl_am_alpha</item>
+        <item name="titleMarginTop">?actionBarSize</item>
+        <item name="android:background">?colorPrimary</item>
+        <item name="android:elevation" tools:targetApi="lollipop">4dp</item>
+    </style>
+
+    <style name="MyFloatingButton" parent="Theme.AppCompat.Light">
+        <item name="colorAccent">@color/pink</item>
+    </style>
+
+    <style name="MyPopupTheme" parent="ThemeOverlay.AppCompat.Dark">
+        <item name="android:colorControlActivated" tools:targetApi="lollipop">@color/red </item>
+        <item name="android:colorControlHighlight" tools:targetApi="lollipop">@color/red</item>
+        <item name="android:colorControlNormal" tools:targetApi="lollipop">@color/yellow</item>
+        <item name="android:textColorPrimary">@color/yellow</item>
+    </style>
+
+    <style name="DatePickerTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorControlNormal">@android:color/white</item>
+        <item name="colorControlActivated">@color/pink</item>
+        <item name="textColorAlertDialogListItem">@android:color/white</item>
+        <item name="colorAccent">@color/pink</item>
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:windowBackground">@drawable/background_dialog</item>
+    </style>
+
+    <style name="TimePickerTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorControlNormal">@color/indigo</item>
+        <item name="colorControlActivated">@color/pink</item>
+        <item name="textColorAlertDialogListItem">@color/indigo</item>
+        <item name="colorAccent">@color/pink</item>
+        <item name="android:textColorPrimary">@color/indigo</item>
+        <item name="android:windowBackground">@drawable/background_dialog</item>
+    </style>
 
 </resources>

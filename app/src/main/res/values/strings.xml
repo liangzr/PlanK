@@ -1,9 +1,12 @@
 <resources>
-    <string name="app_name">plank</string>
+    <string name="app_name">PlanK</string>
     <string name="large_text">
         "2016"
 
         "祝大家猴年大吉"
     </string>
     <string name="action_settings">Settings</string>
+    <string name="title_hint">Title here!</string>
+
+    <item type="id" name="list" />
 </resources>
