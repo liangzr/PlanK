@@ -18,12 +18,9 @@ public class CardLab {
     private CardLab() {
 
         mEvents = new ArrayList<>();
-        for (int i=0;i<10;i++) {
-            EventCard e = new EventCard();
-            e.setTitle("Event #:" + i);
-            mEvents.add(e);
-        }
-
+        EventCard eventCard = new EventCard();
+        eventCard.setTitle("Test");
+        mEvents.add(eventCard);
     }
 
     public ArrayList<EventCard> getEvents() {

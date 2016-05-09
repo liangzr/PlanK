@@ -25,25 +25,32 @@
             app:hintTextAppearance="@style/MyHintText">
 
             <EditText
+                android:id="@+id/event_title"
                 style="@style/TextAppearance.AppCompat.Display1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/title_hint" />
+                android:hint="@string/title_hint"
+                android:imeOptions="actionDone"
+                android:singleLine="true" />
 
         </android.support.design.widget.TextInputLayout>
 
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v4.widget.NestedScrollView
+
+    <FrameLayout
+        android:id="@+id/fragment_event_tips"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    </FrameLayout>
 
-        </FrameLayout>
-    </android.support.v4.widget.NestedScrollView>
-
-
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/ic_add"/>
 </android.support.design.widget.CoordinatorLayout>

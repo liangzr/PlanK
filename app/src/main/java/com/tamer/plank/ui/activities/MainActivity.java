@@ -1,5 +1,6 @@
 package com.tamer.plank.ui.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -9,8 +10,11 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import com.tamer.plank.R;
+import com.tamer.plank.model.CardLab;
+import com.tamer.plank.model.EventCard;
 import com.tamer.plank.ui.adapter.TabAdapter;
 import com.tamer.plank.ui.base.BaseActivity;
+import com.tamer.plank.ui.fragment.EventListFragment;
 
 public class MainActivity extends BaseActivity {
 
@@ -37,7 +41,12 @@ public class MainActivity extends BaseActivity {
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    EventActivity.start(MainActivity.this);
+                    EventCard eventCard = new EventCard();
+                    CardLab.getInstance().getEvents().add(eventCard);
+                    //Start EventActivity
+                    Intent i = new Intent(MainActivity.this, EventActivity.class);
+                    i.putExtra(EventListFragment.EXTRA_EVENT_ID, eventCard.getId());
+                    startActivity(i);
                 }
             });
         }

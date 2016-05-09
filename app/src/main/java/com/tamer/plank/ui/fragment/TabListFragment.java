@@ -1,5 +1,6 @@
 package com.tamer.plank.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ListFragment;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import com.tamer.plank.R;
 import com.tamer.plank.model.CardLab;
 import com.tamer.plank.model.EventCard;
+import com.tamer.plank.ui.activities.EventActivity;
 
 import java.util.ArrayList;
 
@@ -41,6 +43,17 @@ public class TabListFragment extends ListFragment {
         listView.setItemsCanFocus(false);*/
     }
 
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        //Get the event from the adapter
+        EventCard eventCard = ((EventAdapter) getListAdapter()).getItem(position);
+
+        //Start EventActivity
+        Intent i = new Intent(getActivity(), EventActivity.class);
+        i.putExtra(EventListFragment.EXTRA_EVENT_ID, eventCard.getId());
+        startActivity(i);
+    }
+
     private class EventAdapter extends ArrayAdapter<EventCard> {
 
         public EventAdapter(ArrayList<EventCard> eventCards) {
@@ -59,8 +72,15 @@ public class TabListFragment extends ListFragment {
             TextView textView = (TextView) convertView.findViewById(R.id.card_title);
             textView.setText(eventCard.getTitle());
 
+
             return convertView;
         }
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((EventAdapter) getListAdapter()).notifyDataSetChanged();
     }
 }

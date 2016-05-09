@@ -1,6 +1,6 @@
 package com.tamer.plank.model;
 
-import java.util.List;
+import java.util.ArrayList;
 import java.util.UUID;
 
 /**
@@ -9,11 +9,13 @@ import java.util.UUID;
 public class EventCard {
     private UUID mId;
     private String mTitle;
-    private List<String> mTips;
+    private ArrayList<String> mTips;
 
     public EventCard() {
         //生成唯一标识符
         mId = UUID.randomUUID();
+        mTips = new ArrayList<>();
+        mTips.add(null);
     }
 
     public String getTitle() {
@@ -24,11 +26,11 @@ public class EventCard {
         this.mTitle = Title;
     }
 
-    public List<String> getTips() {
+    public ArrayList<String> getTips() {
         return mTips;
     }
 
-    public void setTips(List<String> Tips) {
+    public void setTips(ArrayList<String> Tips) {
         this.mTips = Tips;
     }
 
