@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ListFragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -55,38 +56,34 @@ public class EventListFragment extends ListFragment {
         listView.setDivider(null);
     }
 
-    private class EventListAdapter extends ArrayAdapter<String> {
+    private class EventListAdapter extends ArrayAdapter<String> implements TextWatcher {
+        private int mPosition;
 
         public EventListAdapter(ArrayList<String> tips) {
             super(getActivity(), 0, tips);
         }
 
         @Override
-        public View getView(final int position, View convertView, ViewGroup parent) {
+        public View getView(int position, View convertView, ViewGroup parent) {
+            ViewHolder viewHolder;
+            final String tip = mEvent.getTips().get(position);
+            for (String s : mEvent.getTips()) {
+                Log.d("getView", "Position: "+Integer.toString(position) + " | " + "tip:"+ s);
+            }
+            mPosition = position;
             //If we weren't given a view ,inflate one
             if (convertView == null) {
                 convertView = getActivity().getLayoutInflater().inflate(R.layout.list_item_tip, null);
+                viewHolder = new ViewHolder();
+                viewHolder.editText= (EditText) convertView.findViewById(R.id.event_tip);
+                viewHolder.editText.setText(tip);
+                viewHolder.editText.addTextChangedListener(this);
+                convertView.setTag(viewHolder);
+            }else {
+                viewHolder = (ViewHolder) convertView.getTag();
+                viewHolder.editText.setText(tip);
+                viewHolder.editText.addTextChangedListener(this);
             }
-
-            String tip = getItem(position);
-            EditText editText = (EditText) convertView.findViewById(R.id.event_tip);
-            editText.setText(tip);
-            editText.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                }
-
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    mEvent.getTips().set(position, s.toString());
-                }
-
-                @Override
-                public void afterTextChanged(Editable s) {
-
-                }
-            });
             /*editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
                 @Override
                 public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -99,8 +96,30 @@ public class EventListFragment extends ListFragment {
                 }
             });*/
             return convertView;
+
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            mEvent.getTips().set(mPosition, s.toString());
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
+
+        class ViewHolder{
+            EditText editText;
         }
     }
+
+
 
     @Override
     public void onResume() {

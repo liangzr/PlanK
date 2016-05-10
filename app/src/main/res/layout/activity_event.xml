@@ -8,20 +8,26 @@
     tools:context=".ui.activities.MainActivity">
 
     <android.support.design.widget.AppBarLayout
+        android:fitsSystemWindows="true"
+        android:background="#5c6bc0"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            style="@style/BackMyToolbar"
+            android:id="@+id/toolbar_event"
             android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
-            app:title="Edit Event" />
+            android:layout_height="72dp"
+            android:fitsSystemWindows="true"
+            app:title="Edit Event"
+            style="@style/MyToolbar"
+            app:titleTextAppearance="@style/ToolbarTextAppearance.Title" />
+
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
+            android:fitsSystemWindows="true"
             app:hintTextAppearance="@style/MyHintText">
 
             <EditText

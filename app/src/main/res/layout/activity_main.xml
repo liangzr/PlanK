@@ -17,16 +17,16 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
+            android:layout_height="72dp"
             android:fitsSystemWindows="true"
             app:title="PlanK"
+            style="@style/MyToolbar"
             app:titleTextAppearance="@style/ToolbarTextAppearance.Title" />
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:tabContentStart="72dp"
             style="@style/TabLayoutStyle"
