@@ -2,6 +2,7 @@ package com.tamer.plank.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ListFragment;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.tamer.plank.R;
 import com.tamer.plank.model.CardLab;
@@ -27,6 +29,7 @@ public class EventListFragment extends ListFragment {
     public static final String EXTRA_EVENT_ID = "com.tamer.plank.ui.event_id";
 
     private EventCard mEvent;
+    private ListView mListView;
 
     public static EventListFragment newInstance(UUID crimeId) {
         Bundle args = new Bundle();
@@ -43,7 +46,7 @@ public class EventListFragment extends ListFragment {
         super.onCreate(savedInstanceState);
 
         UUID eventId = (UUID) getArguments().getSerializable(EXTRA_EVENT_ID);
-        mEvent = CardLab.getInstance().getEventCard(eventId);
+        mEvent = CardLab.getInstance(getActivity()).getEventCard(eventId);
 
         EventListAdapter adapter = new EventListAdapter(mEvent.getTips());
         setListAdapter(adapter);
@@ -52,11 +55,11 @@ public class EventListFragment extends ListFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ListView listView = getListView();
-        listView.setDivider(null);
+        mListView = getListView();
+        mListView.setDivider(null);
     }
 
-    private class EventListAdapter extends ArrayAdapter<String> implements TextWatcher {
+    private class EventListAdapter extends ArrayAdapter<String> {
         private int mPosition;
 
         public EventListAdapter(ArrayList<String> tips) {
@@ -64,66 +67,108 @@ public class EventListFragment extends ListFragment {
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            ViewHolder viewHolder;
+        public View getView(final int position, View convertView, ViewGroup parent) {
+            final ViewHolder viewHolder;
             final String tip = mEvent.getTips().get(position);
-            for (String s : mEvent.getTips()) {
-                Log.d("getView", "Position: "+Integer.toString(position) + " | " + "tip:"+ s);
-            }
+
             mPosition = position;
             //If we weren't given a view ,inflate one
             if (convertView == null) {
                 convertView = getActivity().getLayoutInflater().inflate(R.layout.list_item_tip, null);
                 viewHolder = new ViewHolder();
-                viewHolder.editText= (EditText) convertView.findViewById(R.id.event_tip);
-                viewHolder.editText.setText(tip);
-                viewHolder.editText.addTextChangedListener(this);
+                viewHolder.editText = (EditText) convertView.findViewById(R.id.event_tip);
+                viewHolder.fab = (FloatingActionButton) convertView.findViewById(R.id.fab_tip);
+
+                viewHolder.editText.setTag(position);
                 convertView.setTag(viewHolder);
-            }else {
-                viewHolder = (ViewHolder) convertView.getTag();
-                viewHolder.editText.setText(tip);
-                viewHolder.editText.addTextChangedListener(this);
-            }
-            /*editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-                @Override
-                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                    if (actionId == KeyEvent.KEYCODE_ENTER) {
-                        mEvent.getTips().set(position, v.getText().toString());
-                        mEvent.getTips().add("");
-                        ((EventListAdapter) getListAdapter()).notifyDataSetChanged();
+
+                viewHolder.editText.addTextChangedListener(new TipTextWatcher(viewHolder));
+                viewHolder.fab.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mEvent.getTips().add(null);
+                        refreshList();
+                        int itemPositon = mEvent.getTips().size() -1;
+                        mListView.smoothScrollToPositionFromTop(itemPositon,10);
                     }
+                });
+            } else {
+                viewHolder = (ViewHolder) convertView.getTag();
+                viewHolder.editText.setTag(position);
+            }
+
+            viewHolder.editText.setText(tip);
+            viewHolder.editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if(hasFocus) {
+                        mListView.smoothScrollToPositionFromTop(position, 10);
+
+                    }
+                }
+            });
+            viewHolder.fab.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    if (mEvent.getTips().size() > 1) {
+                        mEvent.getTips().remove(position);
+                        refreshList();
+                    } else {
+                        Toast.makeText(getActivity(),"last one!!!",Toast.LENGTH_SHORT).show();
+                    }
+
                     return true;
                 }
-            });*/
+            });
+
             return convertView;
 
         }
 
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-            mEvent.getTips().set(mPosition, s.toString());
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-
-        }
-
-        class ViewHolder{
+        private class ViewHolder {
             EditText editText;
+            FloatingActionButton fab;
         }
-    }
 
+        private class TipTextWatcher implements TextWatcher {
+
+            ViewHolder holder = null;
+
+            public TipTextWatcher(ViewHolder holder) {
+                this.holder = holder;
+            }
+
+            @Override
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                int position = (int) holder.editText.getTag();
+                mEvent.getTips().set(position, s.toString());
+
+                Log.d("getView", "Position: " + Integer.toString(position) + " | " + "tip:" + s.toString());
+            }
+        }
+
+
+    }
 
 
     @Override
     public void onResume() {
         super.onResume();
+        refreshList();
+    }
+
+    public void refreshList() {
         ((EventListAdapter) getListAdapter()).notifyDataSetChanged();
     }
 }

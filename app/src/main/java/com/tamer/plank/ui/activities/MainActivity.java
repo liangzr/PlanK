@@ -46,6 +46,7 @@ public class MainActivity extends BaseActivity implements SearchView.OnQueryText
 
         TabAdapter adapter = (TabAdapter) getAdapter();
         mViewPager.setAdapter(adapter);
+        //使TabLayout与ViewPager关联
         mTabLayout.setupWithViewPager(mViewPager);
 
 //        mListView = ((ListFragment) getSupportFragmentManager().findFragmentByTag(getFragmentTag(R.id.tabs_viewpager,0))).getListView();
@@ -62,7 +63,7 @@ public class MainActivity extends BaseActivity implements SearchView.OnQueryText
                 @Override
                 public void onClick(View v) {
                     EventCard eventCard = new EventCard();
-                    CardLab.getInstance().getEvents().add(eventCard);
+                    CardLab.getInstance(getApplicationContext()).getEvents().add(eventCard);
                     //Start EventActivity
                     Intent i = new Intent(MainActivity.this, EventActivity.class);
                     i.putExtra(EventListFragment.EXTRA_EVENT_ID, eventCard.getId());

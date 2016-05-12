@@ -1,5 +1,8 @@
 package com.tamer.plank.model;
 
+import android.content.Context;
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -9,18 +12,44 @@ import java.util.UUID;
 public class CardLab {
     private ArrayList<EventCard> mEvents;
 
-    private static CardLab ourInstance = new CardLab();
+    private EventIntentJSONSerializer mSerializer;
 
-    public static CardLab getInstance() {
+    public static final String FILENAME = "events.json";
+
+    private Context mAppContext;
+
+    private static CardLab ourInstance;
+
+    public static CardLab getInstance(Context c) {
+        if (ourInstance == null) {
+            ourInstance = new CardLab(c.getApplicationContext());
+        }
         return ourInstance;
     }
 
-    private CardLab() {
+    private CardLab(Context AppContext) {
+        mAppContext = AppContext;
 
-        mEvents = new ArrayList<>();
-        EventCard eventCard = new EventCard();
-        eventCard.setTitle("Test");
-        mEvents.add(eventCard);
+        mSerializer = new EventIntentJSONSerializer(mAppContext, FILENAME);
+
+        try {
+            mEvents = mSerializer.loadEvents();
+            Log.d("JSON", "loaded from files");
+        } catch (Exception e) {
+            mEvents = new ArrayList<>();
+            Log.e("JSON", "Error loading crimes:" + e);
+        }
+    }
+
+    public boolean saveEvents() {
+        try {
+            mSerializer.saveEvents(mEvents);
+            Log.d("JSON", "events saved to file");
+            return true;
+        } catch (Exception e) {
+            Log.e("JSON", "Error saving events:" + e);
+            return false;
+        }
     }
 
     public ArrayList<EventCard> getEvents() {

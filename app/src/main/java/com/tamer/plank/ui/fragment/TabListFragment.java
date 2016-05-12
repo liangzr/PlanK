@@ -28,7 +28,7 @@ public class TabListFragment extends ListFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mEvents = CardLab.getInstance().getEvents();
+        mEvents = CardLab.getInstance(getActivity()).getEvents();
 
         EventAdapter adapter = new EventAdapter(mEvents);
         setListAdapter(adapter);
@@ -72,6 +72,8 @@ public class TabListFragment extends ListFragment {
             TextView textView = (TextView) convertView.findViewById(R.id.card_title);
             textView.setText(eventCard.getTitle());
 
+            TextView tag = (TextView) convertView.findViewById(R.id.tv_tag);
+            tag.setBackgroundDrawable(getResources().getDrawable(eventCard.getTag()));
 
             return convertView;
         }
@@ -79,8 +81,18 @@ public class TabListFragment extends ListFragment {
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+        CardLab.getInstance(getActivity()).saveEvents();
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
+        refreshList();
+    }
+
+    public void refreshList() {
         ((EventAdapter) getListAdapter()).notifyDataSetChanged();
     }
 }

@@ -5,14 +5,22 @@
     android:orientation="horizontal">
 
     <android.support.design.widget.FloatingActionButton
-        android:layout_width="wrap_content"
+        android:id="@+id/fab_tip"
+        android:layout_width="20dp"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/fab_margin"/>
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="48dp"
+        />
     <EditText
         android:id="@+id/event_tip"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_gravity="top"
         android:textSize="24sp"
-        android:singleLine="true"
-        android:padding="16dp"/>
+        android:background="@null"
+        android:inputType="textMultiLine"
+        android:padding="10dp"/>
 </LinearLayout>

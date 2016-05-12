@@ -29,4 +29,10 @@
 
     <color name="red">#ef1010</color>
     <color name="yellow">#f4d301</color>
+
+    <!--标签颜色-->
+    <color name="tag_mid">#ffff11</color>
+    <color name="tag_low">#388e3c</color>
+    <color name="tag_high">#ff3d00</color>
+    <color name="tag_inactive">#757575</color>
 </resources>
