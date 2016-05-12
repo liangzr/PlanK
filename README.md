@@ -1,4 +1,4 @@
 # 木竹PlanK
-一个属于你的任务备忘助手
+一个简约却不简单的备忘录
 
-2016 - Haapy hou year
+[Demo地址](http://fir.im/d6p7)
