@@ -10,8 +10,8 @@
         android:title="Lock"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/action_share"
-        android:icon="@drawable/ic_action_social_share"
+        android:id="@+id/action_delete"
+        android:icon="@drawable/ic_action_action_delete"
         android:title="Share"
         app:showAsAction="ifRoom" />
 

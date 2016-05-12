@@ -2,11 +2,13 @@ package com.tamer.plank.ui.activities;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -38,6 +40,7 @@ public class EventActivity extends BaseActivity implements Toolbar.OnMenuItemCli
     private DatePickerDialog mDatePickerDialog;
     private int mYear, mMonth, mDay;
     private Button mLock;
+    private int mPosition;
 
     public static void start(@NonNull Activity activity) {
         Intent intent = new Intent(activity, EventActivity.class);
@@ -56,6 +59,8 @@ public class EventActivity extends BaseActivity implements Toolbar.OnMenuItemCli
 
         UUID eventId = (UUID) getIntent().getSerializableExtra(EventListFragment.EXTRA_EVENT_ID);
         mEvent = CardLab.getInstance(this).getEventCard(eventId);
+
+        mPosition = (int) getIntent().getSerializableExtra("POSITION");
 
         EditText editText = (EditText) findViewById(R.id.event_title);
         editText.setText(mEvent.getTitle());
@@ -118,7 +123,24 @@ public class EventActivity extends BaseActivity implements Toolbar.OnMenuItemCli
                     item.setIcon(R.drawable.ic_action_action_lock);
                 }
                 return true;
-            case R.id.action_share:
+            case R.id.action_delete:
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage("确定删除？");
+                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        CardLab.getInstance(getApplicationContext()).getEvents().remove(mPosition);
+                        EventActivity.this.finish();
+                    }
+                });
+                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.create().show();
                 return true;
             default:
         }

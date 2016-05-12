@@ -52,6 +52,7 @@ public class TabListFragment extends ListFragment {
             //Start EventActivity
             Intent i = new Intent(getActivity(), EventActivity.class);
             i.putExtra(EventListFragment.EXTRA_EVENT_ID, eventCard.getId());
+            i.putExtra("POSITION", position);
             startActivity(i);
         }
 

@@ -69,6 +69,7 @@ public class MainActivity extends BaseActivity implements SearchView.OnQueryText
                     //Start EventActivity
                     Intent i = new Intent(MainActivity.this, EventActivity.class);
                     i.putExtra(EventListFragment.EXTRA_EVENT_ID, eventCard.getId());
+                    i.putExtra("POSITION", CardLab.getInstance(getApplicationContext()).getEvents().size()-1);
                     startActivity(i);
                 }
             });
