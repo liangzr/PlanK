@@ -12,6 +12,8 @@ import java.util.UUID;
 public class CardLab {
     private ArrayList<EventCard> mEvents;
 
+    private boolean mShortEncryptionFlag;
+
     private EventIntentJSONSerializer mSerializer;
 
     public static final String FILENAME = "events.json";
@@ -29,6 +31,8 @@ public class CardLab {
 
     private CardLab(Context AppContext) {
         mAppContext = AppContext;
+
+        mShortEncryptionFlag = false;
 
         mSerializer = new EventIntentJSONSerializer(mAppContext, FILENAME);
 
@@ -63,5 +67,13 @@ public class CardLab {
             }
         }
         return null;
+    }
+
+    public boolean isShortEncryptionFlag() {
+        return mShortEncryptionFlag;
+    }
+
+    public void setShortEncryptionFlag(boolean ShortEncryptionFlag) {
+        this.mShortEncryptionFlag = ShortEncryptionFlag;
     }
 }

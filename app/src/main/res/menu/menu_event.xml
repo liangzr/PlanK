@@ -5,10 +5,10 @@
     tools:context=".ui.activities.EventActivity">
 
     <item
-        android:id="@+id/action_notice"
-        android:icon="@drawable/ic_action_content_flag"
-        android:title="Notice"
-        app:showAsAction="always" />
+        android:id="@+id/action_lock"
+        android:icon="@drawable/ic_action_action_unlock"
+        android:title="Lock"
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_share"
         android:icon="@drawable/ic_action_social_share"

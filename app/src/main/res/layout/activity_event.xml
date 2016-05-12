@@ -59,7 +59,7 @@
             android:id="@+id/card_event"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="48dp"
+            android:layout_margin="96dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <LinearLayout

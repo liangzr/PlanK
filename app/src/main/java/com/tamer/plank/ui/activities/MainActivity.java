@@ -23,9 +23,10 @@ import com.tamer.plank.model.CardLab;
 import com.tamer.plank.model.EventCard;
 import com.tamer.plank.ui.adapter.TabAdapter;
 import com.tamer.plank.ui.base.BaseActivity;
+import com.tamer.plank.ui.dialog.EntryptionDialog;
 import com.tamer.plank.ui.fragment.EventListFragment;
 
-public class MainActivity extends BaseActivity implements SearchView.OnQueryTextListener {
+public class MainActivity extends BaseActivity implements SearchView.OnQueryTextListener,Toolbar.OnMenuItemClickListener {
 
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
@@ -39,7 +40,8 @@ public class MainActivity extends BaseActivity implements SearchView.OnQueryText
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.inflateMenu(R.menu.menu_welcome);
-        setSupportActionBar(toolbar);
+        toolbar.setOnMenuItemClickListener(this);
+       // setSupportActionBar(toolbar);
 
         mTabLayout = (TabLayout) findViewById(R.id.tabs);
         mViewPager = (ViewPager) findViewById(R.id.tabs_viewpager);
@@ -137,8 +139,34 @@ public class MainActivity extends BaseActivity implements SearchView.OnQueryText
         return true;
     }
 
+
+
     private String getFragmentTag(int viewPagerId, int fragmentPosition)
     {
         return "android:switcher:" + viewPagerId + ":" + fragmentPosition;
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_encryption:
+                Intent i = new Intent(this, EntryptionDialog.class);
+                startActivity(i);
+                return true;
+            default:
+        }
+        return true;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        CardLab.getInstance(this).setShortEncryptionFlag(false);
     }
 }

@@ -16,6 +16,8 @@ public class EventCard {
     private String mTitle;
     private ArrayList<String> mTips;
     private int mTag;
+    private boolean mEncryption;
+
     public static final int TAG_LOW = R.color.tag_low;
     public static final int TAG_MID = R.color.tag_mid;
     public static final int TAG_HIGH = R.color.tag_high;
@@ -25,6 +27,7 @@ public class EventCard {
     public static final String JSON_TITLE = "title";
     public static final String JSON_TIP = "tip";
     public static final String JSON_TAG = "tag";
+    public static final String JSON_ENCRYPTION = "encryption";
 
 
     public EventCard() {
@@ -34,12 +37,14 @@ public class EventCard {
         mTips.add(null);
         mTag = TAG_MID;
         mTitle = null;
+        mEncryption = false;
     }
 
     public EventCard(JSONObject json) throws JSONException {
         mId = UUID.fromString(json.getString(JSON_ID));
         mTitle = json.getString(JSON_TITLE);
         mTag = json.getInt(JSON_TAG);
+        mEncryption = json.getBoolean(JSON_ENCRYPTION);
         mTips = new ArrayList<>();
         mTips.add(null);
         /*JSONArray array = json.getJSONArray(JSON_TIP);
@@ -55,7 +60,7 @@ public class EventCard {
         json.put(JSON_ID, mId.toString());
         json.put(JSON_TITLE, mTitle);
         json.put(JSON_TAG, mTag);
-
+        json.put(JSON_ENCRYPTION, mEncryption);
         /*JSONArray jsonArray = new JSONArray();
         for (int i = 0; i < mTips.size(); i++) {
             jsonArray.put(json.put(JSON_TIP, mTips.get(i)));
@@ -94,4 +99,11 @@ public class EventCard {
         this.mTag = Tag;
     }
 
+    public boolean isEncryption() {
+        return mEncryption;
+    }
+
+    public void setEncryption(boolean Encryption) {
+        this.mEncryption = Encryption;
+    }
 }

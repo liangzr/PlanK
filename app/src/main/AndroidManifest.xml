@@ -25,6 +25,13 @@
             android:label="Edit Event" >
 
         </activity>
+        <activity
+            android:name=".ui.dialog.EntryptionDialog"
+            android:windowSoftInputMode="adjustPan"
+            android:theme="@style/Base.Theme.AppCompat.Light.Dialog"
+            android:label="输入密码" >
+
+        </activity>
     </application>
 
 </manifest>

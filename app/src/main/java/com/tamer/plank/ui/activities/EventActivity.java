@@ -12,6 +12,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -36,6 +37,7 @@ public class EventActivity extends BaseActivity implements Toolbar.OnMenuItemCli
     private ArrayList<EventCard> mEvents;
     private DatePickerDialog mDatePickerDialog;
     private int mYear, mMonth, mDay;
+    private Button mLock;
 
     public static void start(@NonNull Activity activity) {
         Intent intent = new Intent(activity, EventActivity.class);
@@ -49,6 +51,8 @@ public class EventActivity extends BaseActivity implements Toolbar.OnMenuItemCli
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_event);
         toolbar.inflateMenu(R.menu.menu_event);
+        toolbar.setOnMenuItemClickListener(this);
+
 
         UUID eventId = (UUID) getIntent().getSerializableExtra(EventListFragment.EXTRA_EVENT_ID);
         mEvent = CardLab.getInstance(this).getEventCard(eventId);
@@ -104,8 +108,15 @@ public class EventActivity extends BaseActivity implements Toolbar.OnMenuItemCli
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_notice:
-                mDatePickerDialog.show();
+            case R.id.action_lock:
+                if (mEvent.isEncryption()) {
+                    mEvent.setEncryption(false);
+                    item.setIcon(R.drawable.ic_action_action_unlock);
+
+                } else {
+                    mEvent.setEncryption(true);
+                    item.setIcon(R.drawable.ic_action_action_lock);
+                }
                 return true;
             case R.id.action_share:
                 return true;

@@ -48,10 +48,13 @@ public class TabListFragment extends ListFragment {
         //Get the event from the adapter
         EventCard eventCard = ((EventAdapter) getListAdapter()).getItem(position);
 
-        //Start EventActivity
-        Intent i = new Intent(getActivity(), EventActivity.class);
-        i.putExtra(EventListFragment.EXTRA_EVENT_ID, eventCard.getId());
-        startActivity(i);
+        if ((!eventCard.isEncryption()) || (CardLab.getInstance(getActivity()).isShortEncryptionFlag())) {
+            //Start EventActivity
+            Intent i = new Intent(getActivity(), EventActivity.class);
+            i.putExtra(EventListFragment.EXTRA_EVENT_ID, eventCard.getId());
+            startActivity(i);
+        }
+
     }
 
     private class EventAdapter extends ArrayAdapter<EventCard> {
@@ -62,18 +65,24 @@ public class TabListFragment extends ListFragment {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            //If we weren't given a view, inflate one
-            if (convertView == null) {
+            EventCard eventCard = getItem(position);
+            if (eventCard.isEncryption() && !(CardLab.getInstance(getActivity()).isShortEncryptionFlag())) {
+                convertView = getActivity().getLayoutInflater().inflate(R.layout.list_item_locked, null);
+            } else {
+                //If we weren't given a view, inflate one
+
                 convertView = getActivity().getLayoutInflater().inflate(R.layout.list_item_event, null);
+
+
+                //configure the view for the Event
+
+                TextView textView = (TextView) convertView.findViewById(R.id.card_title);
+                textView.setText(eventCard.getTitle());
+
+                TextView tag = (TextView) convertView.findViewById(R.id.tv_tag);
+                tag.setBackgroundDrawable(getResources().getDrawable(eventCard.getTag()));
             }
 
-            //configure the view for the Event
-            EventCard eventCard = getItem(position);
-            TextView textView = (TextView) convertView.findViewById(R.id.card_title);
-            textView.setText(eventCard.getTitle());
-
-            TextView tag = (TextView) convertView.findViewById(R.id.tv_tag);
-            tag.setBackgroundDrawable(getResources().getDrawable(eventCard.getTag()));
 
             return convertView;
         }
