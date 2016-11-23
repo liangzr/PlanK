@@ -23,4 +23,5 @@ dependencies {
 
     /*------------ Android Develop Library -----------*/
     compile project(':devlib')
+    compile 'com.jakewharton:butterknife:7.0.1'
 }
